@@ -2,63 +2,132 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Quer namorar comigo?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosso Álbum ❤️ JK</title>
   <style>
     body {
-      font-family: 'Comic Sans MS', cursive;
+      background: #ffe0e9;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+      color: #660033;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    h1, h2 {
+      margin: 10px 0;
       text-align: center;
-      margin-top: 100px;
-      background-color: #ffe6f0;
+      word-break: break-word;
     }
-    h1 {
-      font-size: 2.5em;
-      color: #ff4081;
+
+    .slider {
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      background: white;
     }
-    .btn {
-      padding: 15px 30px;
-      margin: 20px;
-      font-size: 1.2em;
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slides img {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      background-color: #ff6699;
+      color: white;
       border: none;
+      padding: 10px 20px;
+      font-size: 18px;
       border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s;
     }
-    .yes {
-      background-color: #ff80ab;
-      color: white;
+
+    button:hover {
+      background-color: #cc3366;
     }
-    .no {
-      background-color: #cfd8dc;
-      color: #37474f;
-      position: relative;
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 16px;
+      }
+
+      .slides img {
+        max-height: 250px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>Você quer namorar comigo? 💖</h1>
+  <h1>💖 Nossas Memórias 💖</h1>
+  <h2>Jeni💖Kléber</h2>
 
-  <button class="btn yes" onclick="respostaSim()">Sim</button>
-  <button class="btn no" onmouseover="moverBotao()">Não</button>
+  <div class="slider">
+    <div class="slides" id="slides">
+      <img src="fotos/amor.png" alt="Foto 1">
+      <img src="fotos/J K.jpg" alt="Foto 2">
+      <img src="fotos/kkk.jpg" alt="Foto 3">
+    </div>
+  </div>
 
-  <!-- Link invisível para download -->
-  <a id="downloadLink" href="amor.png" download="amor.png" style="display: none;"></a>
+  <div class="buttons">
+    <button onclick="prevSlide()">Anterior</button>
+    <button onclick="nextSlide()">Próxima</button>
+  </div>
 
   <script>
-    function respostaSim() {
-      alert("Awnnn, eu também quero! 💕😍");
+    let currentIndex = 0;
 
-      // Simula clique no link para baixar imagem
-      const link = document.getElementById('downloadLink');
-      link.click();
+    function showSlide(index) {
+      const slides = document.getElementById('slides');
+      const totalSlides = slides.children.length;
+      if (index >= totalSlides) {
+        currentIndex = 0;
+      } else if (index < 0) {
+        currentIndex = totalSlides - 1;
+      } else {
+        currentIndex = index;
+      }
+      slides.style.transform = `translateX(${-currentIndex * 100}%)`;
     }
 
-    function moverBotao() {
-      const noBtn = document.querySelector('.no');
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 100);
-      noBtn.style.position = "absolute";
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+    function nextSlide() {
+      showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentIndex - 1);
     }
   </script>
 
